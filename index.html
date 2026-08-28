@@ -35,7 +35,6 @@ main{max-width:1500px;margin:auto;padding:26px 28px 60px}
 .module:hover{box-shadow:0 4px 14px #00000012}
 .module-head{display:flex;gap:10px;align-items:center;font-size:20px}
 .module-count{font-size:36px;font-weight:800;margin-top:14px}
-.module.contacts{grid-column:span 2}
 .show-all{width:100%;border:0;background:#eceff3;border-radius:16px;padding:18px;font-size:17px;font-weight:700;margin:10px 0 20px;cursor:pointer}
 .back{background:#fff;border:1px solid #dfe3e8;border-radius:11px;padding:9px 13px;margin-bottom:18px;cursor:pointer}
 .title{font-size:30px;margin:0 0 20px}
@@ -58,15 +57,13 @@ textarea{min-height:100px;resize:vertical}
 .field input,.field select,.field textarea{width:100%;padding:11px;border:1px solid #cfd5dd;border-radius:11px;font:inherit;background:#fff}
 .form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
 .save{border:0;background:#111827;color:#fff;border-radius:11px;padding:11px 18px;font-weight:700;cursor:pointer}
-.cancel-btn{border:1px solid #dfe3e8;background:#fff;border-radius:11px;padding:11px 18px;font-weight:700;cursor:pointer}
 .history{opacity:.78}
 .notice{background:#eef4ff;border:1px solid #c9dcff;border-radius:12px;padding:12px;color:#31527d;margin-bottom:14px}
 @media(max-width:850px){
   main{padding:20px 14px}
   .cards{grid-template-columns:1fr 1fr}
   .module{min-height:140px;padding:19px}
-  .module.contacts{grid-column:span 2}
-}
+  }
 @media(max-width:520px){
   header{height:70px;font-size:25px}
   .cards{gap:12px}
@@ -92,6 +89,13 @@ try{db=JSON.parse(localStorage.getItem(K)||"null")||structuredClone(defaultDB)}c
 db.vehicles ||= []; db.contacts ||= []; db.sales ||= []; db.deliveries ||= []; db.tasks ||= []; db.events ||= [];
 
 const save=()=>localStorage.setItem(K,JSON.stringify(db));
+
+/* Compatibilité avec les versions précédentes */
+db.vehicles.forEach(v=>{
+  if(v.status==="arrivee") v.status="arrivage";
+  if(v.status==="arrivage" && v.arrived===undefined) v.arrived=false;
+});
+save();
 const id=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 const today=()=>new Date().toISOString().slice(0,10);
@@ -149,12 +153,12 @@ function home(){
       ${M("🚘","Parc",park.length,"park")}
       ${M("💰","Ventes",sales.length,"sales")}
       ${M("🚗","Livraisons",deliveries.length,"deliveries")}
-      ${M("👤","Contacts",db.contacts.length,"contacts",true)}
+      ${M("👤","Contacts",db.contacts.length,"contacts")}
     </div>
   `;
 }
-function M(i,n,c,f,wide=false){
-  return `<button class="module ${wide?"contacts":""}" onclick="${f}()">
+function M(i,n,c,f){
+  return `<button class="module" onclick="${f}()">
     <div class="module-head"><span>${i}</span><span>${n}</span></div>
     <div class="module-count">${c}</div>
   </button>`
@@ -165,10 +169,10 @@ function eventRow(e){
 
 /* ---------- TACHES ---------- */
 function taskSort(a,b){
-  const pa=priorityRank(a.priority),pb=priorityRank(b.priority);
-  if(pa!==pb)return pb-pa;
   const da=a.due||"9999-12-31",dbb=b.due||"9999-12-31";
   if(da!==dbb)return da.localeCompare(dbb);
+  const pa=priorityRank(a.priority),pb=priorityRank(b.priority);
+  if(pa!==pb)return pb-pa;
   return (a.createdAt||"").localeCompare(b.createdAt||"");
 }
 function task(t){
@@ -254,7 +258,7 @@ function vehicleRow(v){
   return `<div class="item">
     <div class="item-main" onclick="showArrival('${v.id}')">
       <div class="item-title">${esc(v.model)} <span class="badge ${v.arrived?"low":"medium"}">${status}</span></div>
-      <div class="item-sub">${esc(v.immat||"Sans immatriculation")}${v.comment?" · "+esc(v.comment):""}</div>
+      <div class="item-sub">${esc(v.immat||"Sans immatriculation")}${v.finish?" · "+esc(v.finish):""}${v.bluePrice?" · Bleu : "+esc(v.bluePrice)+" €":""}${v.blackPrice?" · Noir : "+esc(v.blackPrice)+" €":""}${v.comment?" · "+esc(v.comment):""}</div>
     </div>
     <div class="item-actions">
       <button class="small" onclick="showArrival('${v.id}')">Ouvrir</button>
@@ -352,7 +356,7 @@ function newParc(){
 }
 function submitParc(f){
   const x=Object.fromEntries(new FormData(f));
-  db.vehicles.push({id:id(),status:"parc",...x});save();closeModal();park();
+  db.vehicles.push({id:id(),status:"parc",arrived:true,...x});save();closeModal();park();
 }
 function showPark(i){
   const v=db.vehicles.find(x=>x.id===i);if(!v)return;
@@ -368,7 +372,7 @@ function showPark(i){
       ${field("Prix bleu","bluePrice","number","",v.bluePrice||"")}
       ${field("Prix noir","blackPrice","number","",v.blackPrice||"")}
       ${textareaField("Commentaire","comment",v.comment||"")}
-      <div class="form-actions"><button type="button" class="cancel-btn" onclick="closeModal()">Fermer</button><button type="submit" class="save">Enregistrer</button></div>
+      <div class="form-actions"><button type="submit" class="save">Enregistrer</button></div>
     </form>
     <hr>
     <button class="action secondary" onclick="deleteVehicle('${v.id}','parc')">🗑 Supprimer le véhicule</button>`);
@@ -426,7 +430,7 @@ function showContact(i){
         {value:"Téléphone",label:"Téléphone"},{value:"Mail",label:"Mail"},{value:"Autre",label:"Autre"}
       ],c.source||"")}
       ${textareaField("Notes","note",c.note||"")}
-      <div class="form-actions"><button type="button" class="cancel-btn" onclick="closeModal()">Fermer</button><button type="submit" class="save">Enregistrer</button></div>
+      <div class="form-actions"><button type="submit" class="save">Enregistrer</button></div>
     </form>
     <hr>
     <button class="action" onclick="newContactTask('${c.id}')">＋ Ajouter une tâche pour ce contact</button>
@@ -491,7 +495,7 @@ function showSale(i){
       ${field("Véhicule","vehicleName","text","",s.vehicleName||"")}
       ${field("Date","date","date","",s.date||"")}
       ${field("Prix de vente","price","number","",s.price||"")}
-      <div class="form-actions"><button type="button" class="cancel-btn" onclick="closeModal()">Fermer</button><button class="save">Enregistrer</button></div>
+      <div class="form-actions"><button class="save">Enregistrer</button></div>
     </form>
     <hr><button class="action secondary" onclick="delSale('${s.id}')">🗑 Supprimer la vente</button>`);
 }
