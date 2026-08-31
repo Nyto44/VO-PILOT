@@ -1,545 +1,77 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f5f6f8">
+<meta name="theme-color" content="#111827">
 <title>VO PILOT</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f5f6f8;color:#111827;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-header{height:80px;background:#fff;border-bottom:1px solid #dfe3e8;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800}
-main{max-width:1500px;margin:auto;padding:26px 28px 60px}
-.date{color:#687386;margin-bottom:22px}
-.section-title{font-size:14px;font-weight:800;color:#687386;text-transform:uppercase;margin:30px 0 12px}
-.empty{color:#687386;margin-bottom:20px}
-.list{display:grid;gap:10px}
-.item{background:#fff;border:1px solid #dfe3e8;border-radius:14px;padding:16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
-.item-main{min-width:0;cursor:pointer;flex:1}
-.item-title{font-weight:700}
-.item-sub{color:#687386;font-size:14px;margin-top:5px}
-.item-actions{display:flex;gap:6px;flex-shrink:0}
-.small{border:1px solid #dfe3e8;background:#fff;border-radius:10px;padding:8px 11px;cursor:pointer;font-size:15px}
-.small:hover{background:#f3f4f6}
-.danger{color:#b42318}
-.success{color:#067647}
-.badge{display:inline-block;margin-left:7px;padding:3px 7px;border-radius:999px;font-size:11px;font-weight:800;background:#eef0f3;color:#596273}
-.badge.high{background:#fee4e2;color:#b42318}
-.badge.medium{background:#fff1cc;color:#8a5a00}
-.badge.low{background:#e7f6ec;color:#16734a}
-.action{width:100%;margin:26px 0;background:#111827;color:#fff;border:0;border-radius:16px;padding:19px;font-size:18px;font-weight:700;cursor:pointer}
-.action.secondary{background:#eceff3;color:#111827}
-.action.inline{margin:0}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.module{border:1px solid #dfe3e8;background:#fff;border-radius:20px;min-height:135px;padding:24px;text-align:left;box-shadow:0 2px 8px #0000000d;cursor:pointer}
-.module:hover{box-shadow:0 4px 14px #00000012}
-.module-head{display:flex;gap:10px;align-items:center;font-size:20px}
-.module-count{font-size:36px;font-weight:800;margin-top:14px}
-.show-all{width:100%;border:0;background:#eceff3;border-radius:16px;padding:18px;font-size:17px;font-weight:700;margin:10px 0 20px;cursor:pointer}
-.back{background:#fff;border:1px solid #dfe3e8;border-radius:11px;padding:9px 13px;margin-bottom:18px;cursor:pointer}
-.title{font-size:30px;margin:0 0 20px}
-.page-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.page-toolbar .title{margin:0}
-.details{background:#fff;border:1px solid #dfe3e8;border-radius:16px;padding:18px}
-.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.detail-label{font-size:12px;color:#687386;text-transform:uppercase;font-weight:800}
-.detail-value{margin-top:3px}
-.checkline{display:flex;align-items:center;gap:8px;margin:8px 0}
-textarea{min-height:100px;resize:vertical}
-.modal-bg{position:fixed;inset:0;background:#0f172a7a;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
-.modal-bg.open{display:flex}
-.modal{position:relative;background:#fff;border-radius:22px;padding:26px;width:min(700px,100%);max-height:90vh;overflow:auto}
-.modal h2{margin:0 45px 22px 0}
-.close{position:absolute;right:14px;top:12px;border:0;background:transparent;font-size:34px;color:#596273;cursor:pointer;width:42px;height:42px;line-height:42px}
-.form{display:grid;gap:14px}
-.field{display:grid;gap:7px}
-.field label{font-size:14px;font-weight:650}
-.field input,.field select,.field textarea{width:100%;padding:11px;border:1px solid #cfd5dd;border-radius:11px;font:inherit;background:#fff}
-.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
-.save{border:0;background:#111827;color:#fff;border-radius:11px;padding:11px 18px;font-weight:700;cursor:pointer}
-.history{opacity:.78}
-.notice{background:#eef4ff;border:1px solid #c9dcff;border-radius:12px;padding:12px;color:#31527d;margin-bottom:14px}
-@media(max-width:850px){
-  main{padding:20px 14px}
-  .cards{grid-template-columns:1fr 1fr}
-  .module{min-height:140px;padding:19px}
-  }
-@media(max-width:520px){
-  header{height:70px;font-size:25px}
-  .cards{gap:12px}
-  .module{padding:18px}
-  .module-head{font-size:18px}
-  .module-count{font-size:34px}
-  .detail-grid{grid-template-columns:1fr}
-}
+:root{--bg:#f5f6f8;--card:#fff;--text:#111827;--muted:#64748b;--line:#dbe1e8;--blue:#1683f7;--dark:#111827;--green:#166534;--red:#b91c1c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:0 22px 50px}
+header{height:92px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 -22px 28px}
+.brand{font-size:30px;font-weight:800}.date{font-size:18px;color:var(--muted);margin-bottom:22px}
+h1{font-size:34px;margin:0 0 22px}.section{font-size:17px;font-weight:800;color:#64748b;text-transform:uppercase;margin:28px 0 12px}
+.task-list{display:flex;flex-direction:column;gap:10px}.task{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 8px #0f172a0f}
+.task-main{flex:1;min-width:0}.task-title{font-weight:700}.task-meta{font-size:13px;color:var(--muted);margin-top:5px}
+.priority{font-size:11px;font-weight:800;text-transform:uppercase;padding:3px 7px;border-radius:99px;margin-left:7px}.high{background:#fee2e2;color:#991b1b}.medium{background:#fef3c7;color:#92400e}.low{background:#dcfce7;color:#166534}
+.actions{display:flex;gap:7px}.icon{width:38px;height:38px;border:1px solid var(--line);background:#fff;border-radius:10px}.ok{color:var(--green)}.del{color:var(--red)}
+.add{width:100%;border:0;background:var(--dark);color:#fff;border-radius:16px;padding:17px;font-weight:800;font-size:17px;margin-top:12px}
+.empty{color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:15px;padding:17px;text-align:center}
+.modules{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}.module{background:#fff;border:1px solid var(--line);border-radius:20px;padding:25px;min-height:150px;text-align:left;box-shadow:0 2px 8px #0f172a0f}.module-head{display:flex;align-items:center;gap:12px;font-size:21px;color:var(--blue)}.module-icon{font-size:28px}.count{font-size:48px;font-weight:800;color:var(--blue);margin-top:18px}
+.page-head{display:flex;align-items:center;gap:12px;margin:8px 0 24px}.back,.secondary{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 14px}.page-head h1{margin:0;font-size:31px}.page-add{margin-left:auto}.primary{background:var(--dark);color:#fff;border:0;border-radius:12px;padding:12px 18px;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.vehicle{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 2px 8px #0f172a0f}.vtop{display:flex;justify-content:space-between;gap:10px}.vtitle{font-size:19px;font-weight:800}.sub{font-size:13px;color:var(--muted);margin-top:4px}.status{white-space:nowrap;font-size:12px;font-weight:800;padding:6px 9px;border-radius:99px}.pending{background:#fff7ed;color:#9a3412}.arrived{background:#dcfce7;color:#166534}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-top:16px;padding-top:14px;border-top:1px solid #edf0f3}.ilabel{font-size:11px;text-transform:uppercase;color:#94a3b8;font-weight:700}.ivalue{font-size:14px;margin-top:2px}.card-actions{display:flex;gap:8px;margin-top:16px}.card-actions button{flex:1}.danger{color:var(--red);border-color:#fecaca}
+.checks{margin-top:18px;border-top:1px solid #edf0f3;padding-top:14px}.checks-title{font-weight:800;margin-bottom:8px}.check{display:flex;align-items:center;gap:9px;padding:7px 0;font-size:14px}.check input{width:18px;height:18px;accent-color:var(--blue)}.missing{color:#9a3412}.done{color:#166534}
+.overlay{position:fixed;inset:0;background:#0f172a7d;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.overlay.open{display:flex}.modal{width:min(760px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:22px;padding:25px;box-shadow:0 20px 60px #0004}.mhead{display:flex;align-items:center;gap:12px;margin-bottom:22px}.mhead h2{margin:0;flex:1;font-size:25px}.close{border:0;background:transparent;color:#64748b;font-size:30px;width:40px;height:40px}.form{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:7px}.full{grid-column:1/-1}label{font-size:13px;font-weight:800}input,select,textarea{width:100%;border:1px solid #cbd5e1;border-radius:11px;padding:12px 13px;outline:0;background:#fff}textarea{min-height:90px;resize:vertical}.mActions{display:flex;justify-content:flex-end;gap:9px;margin-top:22px}.arrivedBox{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);border-radius:11px;background:#f8fafc}.arrivedBox input{width:18px}
+.history{opacity:.7}
+@media(max-width:760px){.app{padding:0 14px 40px}header{margin:0 -14px 24px;height:76px}.modules,.grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}.page-head{flex-wrap:wrap}.page-add{width:100%;margin-left:0}.page-add button{width:100%}}
 </style>
 </head>
-<body>
-<header>VO PILOT</header>
-<main id="app"></main>
-<div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal" id="modalBox"></div>
-</div>
-
+<body><div id="app"></div><div id="overlay" class="overlay"><div id="modal" class="modal"></div></div>
 <script>
-const K="vo_pilot";
-const defaultDB={vehicles:[],contacts:[],sales:[],deliveries:[],tasks:[],events:[]};
-let db;
-try{db=JSON.parse(localStorage.getItem(K)||"null")||structuredClone(defaultDB)}catch(e){db=structuredClone(defaultDB)}
-db.vehicles ||= []; db.contacts ||= []; db.sales ||= []; db.deliveries ||= []; db.tasks ||= []; db.events ||= [];
-
-const save=()=>localStorage.setItem(K,JSON.stringify(db));
-
-/* Compatibilité avec les versions précédentes */
-db.vehicles.forEach(v=>{
-  if(v.status==="arrivee") v.status="arrivage";
-  if(v.status==="arrivage" && v.arrived===undefined) v.arrived=false;
-});
-save();
-const id=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-const today=()=>new Date().toISOString().slice(0,10);
-const fmtDate=d=>d?new Date(d+"T00:00:00").toLocaleDateString("fr-FR"): "Sans échéance";
-const priorityRank=p=>({Élevée:3,Moyenne:2,Faible:1,"":0,Aucune:0}[p]??0);
-
-function closeModal(){modal.classList.remove("open");modalBox.innerHTML=""}
-function openModal(x){modalBox.innerHTML=x;modal.classList.add("open")}
-function back(){return `<button class="back" onclick="home()">← Retour</button>`}
-
-function field(label,name,type="text",required="",value=""){
-  return `<div class="field"><label>${label}</label><input name="${name}" type="${type}" ${required} value="${esc(value)}"></div>`
-}
-function selectField(label,name,options,value=""){
-  return `<div class="field"><label>${label}</label><select name="${name}">${options.map(o=>`<option value="${esc(o.value)}" ${String(o.value)===String(value)?"selected":""}>${esc(o.label)}</option>`).join("")}</select></div>`
-}
-function textareaField(label,name,value=""){
-  return `<div class="field"><label>${label}</label><textarea name="${name}">${esc(value)}</textarea></div>`
-}
-function form(title,fields,fn){
-  openModal(`<button type="button" class="close" aria-label="Fermer" onclick="closeModal()">×</button>
-  <h2>${title}</h2>
-  <form class="form" onsubmit="${fn}(this);return false">${fields}
-    <div class="form-actions"><button type="submit" class="save">Enregistrer</button></div>
-  </form>`)
-}
-
-/* ---------- ACCUEIL ---------- */
-function home(){
-  const arrivals=db.vehicles.filter(v=>v.status==="arrivage");
-  const park=db.vehicles.filter(v=>v.status==="parc");
-  const sales=db.sales.filter(s=>s.status!=="deleted");
-  const deliveries=db.deliveries.filter(d=>d.status==="active");
-  const pending=db.tasks.filter(t=>!t.done).sort(taskSort);
-  const events=db.events.filter(e=>e.date===today()).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
-
-  app.innerHTML=`
-    <div class="date">${new Intl.DateTimeFormat("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date())}</div>
-
-    <div class="section-title">À faire aujourd'hui</div>
-    ${pending.length
-      ? `<div class="list">${pending.slice(0,5).map(task).join("")}</div>`
-      : `<div class="empty">Aucune tâche en attente 🎉</div>`}
-    ${pending.length>5?`<button class="show-all" onclick="allTasks()">▼ Afficher toutes les tâches</button>`:""}
-
-    <div class="section-title">Événements d'aujourd'hui</div>
-    ${events.length
-      ? `<div class="list">${events.map(eventRow).join("")}</div>`
-      : `<div class="empty">Aucun événement aujourd’hui.</div>`}
-
-    <button class="action" onclick="newTask()">＋ Ajouter une tâche</button>
-
-    <div class="cards">
-      ${M("🚚","Arrivages",arrivals.length,"arrivals")}
-      ${M("🚘","Parc",park.length,"park")}
-      ${M("💰","Ventes",sales.length,"sales")}
-      ${M("🚗","Livraisons",deliveries.length,"deliveries")}
-      ${M("👤","Contacts",db.contacts.length,"contacts")}
-    </div>
-  `;
-}
-function M(i,n,c,f){
-  return `<button class="module" onclick="${f}()">
-    <div class="module-head"><span>${i}</span><span>${n}</span></div>
-    <div class="module-count">${c}</div>
-  </button>`
-}
-function eventRow(e){
-  return `<div class="item"><div><div class="item-title">📅 ${esc(e.title)}</div><div class="item-sub">${esc(e.time||"")}${e.note?" · "+esc(e.note):""}</div></div></div>`
-}
-
-/* ---------- TACHES ---------- */
-function taskSort(a,b){
-  const da=a.due||"9999-12-31",dbb=b.due||"9999-12-31";
-  if(da!==dbb)return da.localeCompare(dbb);
-  const pa=priorityRank(a.priority),pb=priorityRank(b.priority);
-  if(pa!==pb)return pb-pa;
-  return (a.createdAt||"").localeCompare(b.createdAt||"");
-}
-function task(t){
-  const p=t.priority||"";
-  const badge=p?`<span class="badge ${p==="Élevée"?"high":p==="Moyenne"?"medium":"low"}">${esc(p)}</span>`:"";
-  return `<div class="item">
-    <div class="item-main" onclick="editTask('${t.id}')">
-      <div class="item-title">${esc(t.title)} ${badge}</div>
-      <div class="item-sub">${t.due?"Échéance : "+fmtDate(t.due):"Sans échéance"}${t.done&&t.completedAt?" · Terminée le "+fmtDate(t.completedAt):""}</div>
-    </div>
-    <div class="item-actions">
-      ${t.done
-        ? `<button class="small success" onclick="restoreTask('${t.id}')" title="Remettre à faire">↩</button>`
-        : `<button class="small success" onclick="doneTask('${t.id}')" title="Terminer">✓</button>`}
-      <button class="small danger" onclick="delTask('${t.id}')" title="Supprimer définitivement">🗑</button>
-    </div>
-  </div>`
-}
-function newTask(){
-  form("☑ Nouvelle tâche",
-    field("Titre *","title","text","required")+
-    field("Échéance","due","date")+
-    selectField("Importance","priority",[
-      {value:"",label:"Aucune"},
-      {value:"Faible",label:"Faible"},
-      {value:"Moyenne",label:"Moyenne"},
-      {value:"Élevée",label:"Élevée"}
-    ]),
-    "submitTask")
-}
-function submitTask(f){
-  const x=Object.fromEntries(new FormData(f));
-  db.tasks.push({id:id(),done:false,createdAt:new Date().toISOString(),...x});
-  save();closeModal();home();
-}
-function doneTask(i){
-  const t=db.tasks.find(x=>x.id===i);
-  if(!t)return;
-  t.done=true;t.completedAt=today();save();home();
-}
-function restoreTask(i){
-  const t=db.tasks.find(x=>x.id===i);
-  if(!t)return;
-  t.done=false;delete t.completedAt;save();allTasks();
-}
-function delTask(i){
-  if(!confirm("Supprimer définitivement cette tâche ?"))return;
-  db.tasks=db.tasks.filter(x=>x.id!==i);save();home();
-}
-function editTask(i){
-  const t=db.tasks.find(x=>x.id===i);if(!t)return;
-  form("✏️ Modifier la tâche",
-    field("Titre *","title","text","required",t.title)+
-    field("Échéance","due","date","",t.due||"")+
-    selectField("Importance","priority",[
-      {value:"",label:"Aucune"},{value:"Faible",label:"Faible"},
-      {value:"Moyenne",label:"Moyenne"},{value:"Élevée",label:"Élevée"}
-    ],t.priority||""),
-    "saveTaskEdit");
-  document.querySelector("#modalBox form").dataset.id=i;
-}
-function saveTaskEdit(f){
-  const t=db.tasks.find(x=>x.id===f.dataset.id);if(!t)return;
-  Object.assign(t,Object.fromEntries(new FormData(f)));save();closeModal();home();
-}
-function allTasks(){
-  const pending=db.tasks.filter(t=>!t.done).sort(taskSort);
-  const done=db.tasks.filter(t=>t.done).sort((a,b)=>(b.completedAt||"").localeCompare(a.completedAt||""));
-  app.innerHTML=`${back()}<div class="page-toolbar"><h1 class="title">☑ Tâches</h1><button class="action inline" onclick="newTask()">＋ Ajouter</button></div>
-    <div class="section-title">À faire</div>
-    ${pending.length?`<div class="list">${pending.map(task).join("")}</div>`:`<div class="empty">Aucune tâche en attente 🎉</div>`}
-    <div class="section-title">Historique</div>
-    ${done.length?`<div class="list history">${done.map(task).join("")}</div>`:`<div class="empty">Aucune tâche terminée.</div>`}`;
-}
-
-/* ---------- ARRIVAGES ---------- */
-function arrivals(){
-  const arr=db.vehicles.filter(v=>v.status==="arrivage");
-  listPage("🚚 Arrivages",arr.map(vehicleRow).join(""),"newArrival","Aucun arrivage.");
-}
-function vehicleRow(v){
-  const status=v.arrived?"Arrivée":"En attente";
-  return `<div class="item">
-    <div class="item-main" onclick="showArrival('${v.id}')">
-      <div class="item-title">${esc(v.model)} <span class="badge ${v.arrived?"low":"medium"}">${status}</span></div>
-      <div class="item-sub">${esc(v.immat||"Sans immatriculation")}${v.finish?" · "+esc(v.finish):""}${v.bluePrice?" · Bleu : "+esc(v.bluePrice)+" €":""}${v.blackPrice?" · Noir : "+esc(v.blackPrice)+" €":""}${v.comment?" · "+esc(v.comment):""}</div>
-    </div>
-    <div class="item-actions">
-      <button class="small" onclick="showArrival('${v.id}')">Ouvrir</button>
-      <button class="small danger" onclick="deleteVehicle('${v.id}','arrivage')" title="Supprimer">🗑</button>
-    </div>
-  </div>`
-}
-function newArrival(){
-  form("🚚 Nouvel arrivage",
-    field("Modèle *","model","text","required")+
-    field("Immatriculation","immat")+
-    field("Finition","finish")+
-    field("Kilométrage","km","number")+
-    field("Couleur","color")+
-    field("Date d'achat","purchaseDate","date")+
-    field("Prix d'achat","buyPrice","number")+
-    field("Prix bleu","bluePrice","number")+
-    field("Prix noir","blackPrice","number")+
-    textareaField("Commentaire","comment")+
-    `<div class="checkline"><input id="arrived" name="arrived" type="checkbox"><label for="arrived">La voiture est déjà arrivée</label></div>`,
-    "submitArrival");
-}
-function submitArrival(f){
-  const x=Object.fromEntries(new FormData(f));
-  x.arrived=f.arrived.checked;
-  db.vehicles.push({id:id(),status:"arrivage",...x});
-  save();closeModal();arrivals();
-}
-function showArrival(i){
-  const v=db.vehicles.find(x=>x.id===i);if(!v)return;
-  openModal(`<button type="button" class="close" onclick="closeModal()">×</button>
-    <h2>🚚 ${esc(v.model)}</h2>
-    <form class="form" onsubmit="saveArrivalEdit(this);return false" data-id="${v.id}">
-      ${field("Modèle *","model","text","required",v.model)}
-      ${field("Immatriculation","immat","text","",v.immat||"")}
-      ${field("Finition","finish","text","",v.finish||"")}
-      ${field("Kilométrage","km","number","",v.km||"")}
-      ${field("Couleur","color","text","",v.color||"")}
-      ${field("Date d'achat","purchaseDate","date","",v.purchaseDate||"")}
-      ${field("Prix d'achat","buyPrice","number","",v.buyPrice||"")}
-      ${field("Prix bleu","bluePrice","number","",v.bluePrice||"")}
-      ${field("Prix noir","blackPrice","number","",v.blackPrice||"")}
-      ${textareaField("Commentaire","comment",v.comment||"")}
-      <div class="checkline"><input id="arrivedEdit" name="arrived" type="checkbox" ${v.arrived?"checked":""}><label for="arrivedEdit">Voiture arrivée</label></div>
-      <div class="form-actions"><button type="submit" class="save">Enregistrer</button></div>
-    </form>
-    <hr>
-    <button class="action" onclick="moveToPark('${v.id}')">🚘 Passer dans le Parc</button>
-    <button class="action secondary" onclick="deleteVehicle('${v.id}','arrivage')">🗑 Supprimer l'arrivage</button>`);
-}
-function saveArrivalEdit(f){
-  const v=db.vehicles.find(x=>x.id===f.dataset.id);if(!v)return;
-  v.model=f.model.value;v.immat=f.immat.value;v.finish=f.finish.value;v.km=f.km.value;v.color=f.color.value;v.purchaseDate=f.purchaseDate.value;v.buyPrice=f.buyPrice.value;v.bluePrice=f.bluePrice.value;v.blackPrice=f.blackPrice.value;v.comment=f.comment.value;v.arrived=f.arrived.checked;
-  save();closeModal();arrivals();
-}
-function moveToPark(i){
-  const v=db.vehicles.find(x=>x.id===i);if(!v)return;
-  if(!v.arrived){alert("Indique d'abord que la voiture est arrivée.");return}
-  v.status="parc";v.parkedAt=today();save();closeModal();park();
-}
-function deleteVehicle(i,where){
-  if(!confirm("Supprimer cette fiche ?"))return;
-  db.vehicles=db.vehicles.filter(x=>x.id!==i);save();closeModal();where==="arrivage"?arrivals():park();
-}
-
-/* ---------- PARC ---------- */
-function park(){
-  const arr=db.vehicles.filter(v=>v.status==="parc");
-  listPage("🚘 Parc",arr.map(parkRow).join(""),"newParc","Aucun véhicule dans le parc.");
-}
-function parkRow(v){
-  return `<div class="item">
-    <div class="item-main" onclick="showPark('${v.id}')">
-      <div class="item-title">${esc(v.model)}</div>
-      <div class="item-sub">${esc(v.immat||"Sans immatriculation")}${v.bluePrice?" · Prix bleu : "+esc(v.bluePrice)+" €":""}</div>
-    </div>
-    <div class="item-actions">
-      <button class="small" onclick="showPark('${v.id}')">Ouvrir</button>
-      <button class="small danger" onclick="deleteVehicle('${v.id}','parc')" title="Supprimer">🗑</button>
-    </div>
-  </div>`
-}
-function newParc(){
-  form("🚘 Nouveau véhicule dans le Parc",
-    field("Modèle *","model","text","required")+
-    field("Immatriculation","immat")+
-    field("Finition","finish")+
-    field("Kilométrage","km","number")+
-    field("Couleur","color")+
-    field("Date d'achat","purchaseDate","date")+
-    field("Prix bleu","bluePrice","number")+
-    field("Prix noir","blackPrice","number")+
-    textareaField("Commentaire","comment"),
-    "submitParc");
-}
-function submitParc(f){
-  const x=Object.fromEntries(new FormData(f));
-  db.vehicles.push({id:id(),status:"parc",arrived:true,...x});save();closeModal();park();
-}
-function showPark(i){
-  const v=db.vehicles.find(x=>x.id===i);if(!v)return;
-  openModal(`<button type="button" class="close" onclick="closeModal()">×</button>
-    <h2>🚘 ${esc(v.model)}</h2>
-    <form class="form" onsubmit="saveParkEdit(this);return false" data-id="${v.id}">
-      ${field("Modèle *","model","text","required",v.model)}
-      ${field("Immatriculation","immat","text","",v.immat||"")}
-      ${field("Finition","finish","text","",v.finish||"")}
-      ${field("Kilométrage","km","number","",v.km||"")}
-      ${field("Couleur","color","text","",v.color||"")}
-      ${field("Date d'achat","purchaseDate","date","",v.purchaseDate||"")}
-      ${field("Prix bleu","bluePrice","number","",v.bluePrice||"")}
-      ${field("Prix noir","blackPrice","number","",v.blackPrice||"")}
-      ${textareaField("Commentaire","comment",v.comment||"")}
-      <div class="form-actions"><button type="submit" class="save">Enregistrer</button></div>
-    </form>
-    <hr>
-    <button class="action secondary" onclick="deleteVehicle('${v.id}','parc')">🗑 Supprimer le véhicule</button>`);
-}
-function saveParkEdit(f){
-  const v=db.vehicles.find(x=>x.id===f.dataset.id);if(!v)return;
-  Object.assign(v,Object.fromEntries(new FormData(f)));v.status="parc";save();closeModal();park();
-}
-
-/* ---------- CONTACTS ---------- */
-function contacts(){
-  const arr=db.contacts.slice().sort((a,b)=>(a.last||a.name||"").localeCompare(b.last||b.name||""));
-  listPage("👤 Contacts",arr.map(contactRow).join(""),"newContact","Aucun contact.");
-}
-function contactName(c){return [c.first,c.last].filter(Boolean).join(" ")||c.name||"Sans nom"}
-function contactRow(c){
-  return `<div class="item">
-    <div class="item-main" onclick="showContact('${c.id}')">
-      <div class="item-title">${esc(contactName(c))}</div>
-      <div class="item-sub">${esc(c.source||"Origine non renseignée")}${c.note?" · "+esc(c.note):""}</div>
-    </div>
-    <div class="item-actions">
-      <button class="small" onclick="showContact('${c.id}')">Ouvrir</button>
-      <button class="small danger" onclick="deleteContact('${c.id}')" title="Supprimer">🗑</button>
-    </div>
-  </div>`
-}
-function newContact(){
-  form("👤 Nouveau contact",
-    field("Prénom *","first","text","required")+
-    field("Nom","last")+
-    selectField("Origine","source",[
-      {value:"Leboncoin",label:"Leboncoin"},{value:"La Centrale",label:"La Centrale"},
-      {value:"Site internet",label:"Site internet"},{value:"Showroom",label:"Showroom"},
-      {value:"Téléphone",label:"Téléphone"},{value:"Mail",label:"Mail"},{value:"Autre",label:"Autre"}
-    ])+
-    textareaField("Notes","note"),
-    "submitContact");
-}
-function submitContact(f){
-  const x=Object.fromEntries(new FormData(f));
-  db.contacts.push({id:id(),...x});save();closeModal();contacts();
-}
-function showContact(i){
-  const c=db.contacts.find(x=>x.id===i);if(!c)return;
-  const related=db.tasks.filter(t=>t.type==="contact"&&t.ref===i&&!t.done).sort(taskSort);
-  openModal(`<button type="button" class="close" onclick="closeModal()">×</button>
-    <h2>👤 ${esc(contactName(c))}</h2>
-    <form class="form" onsubmit="saveContactEdit(this);return false" data-id="${c.id}">
-      ${field("Prénom *","first","text","required",c.first||"")}
-      ${field("Nom","last","text","",c.last||"")}
-      ${selectField("Origine","source",[
-        {value:"Leboncoin",label:"Leboncoin"},{value:"La Centrale",label:"La Centrale"},
-        {value:"Site internet",label:"Site internet"},{value:"Showroom",label:"Showroom"},
-        {value:"Téléphone",label:"Téléphone"},{value:"Mail",label:"Mail"},{value:"Autre",label:"Autre"}
-      ],c.source||"")}
-      ${textareaField("Notes","note",c.note||"")}
-      <div class="form-actions"><button type="submit" class="save">Enregistrer</button></div>
-    </form>
-    <hr>
-    <button class="action" onclick="newContactTask('${c.id}')">＋ Ajouter une tâche pour ce contact</button>
-    ${related.length?`<div class="section-title">Tâches liées</div><div class="list">${related.map(task).join("")}</div>`:"" }
-    <button class="action secondary" onclick="deleteContact('${c.id}')">🗑 Supprimer le contact</button>`);
-}
-function saveContactEdit(f){
-  const c=db.contacts.find(x=>x.id===f.dataset.id);if(!c)return;
-  Object.assign(c,Object.fromEntries(new FormData(f)));save();closeModal();contacts();
-}
-function newContactTask(contactId){
-  form("☑ Nouvelle tâche — contact",
-    field("Titre *","title","text","required")+
-    field("Échéance","due","date")+
-    selectField("Importance","priority",[
-      {value:"",label:"Aucune"},{value:"Faible",label:"Faible"},
-      {value:"Moyenne",label:"Moyenne"},{value:"Élevée",label:"Élevée"}
-    ]),
-    "submitContactTask");
-  document.querySelector("#modalBox form").dataset.contact=contactId;
-}
-function submitContactTask(f){
-  const x=Object.fromEntries(new FormData(f));
-  db.tasks.push({id:id(),done:false,createdAt:new Date().toISOString(),type:"contact",ref:f.dataset.contact,...x});
-  save();closeModal();showContact(f.dataset.contact);
-}
-function deleteContact(i){
-  if(!confirm("Supprimer ce contact ?"))return;
-  db.contacts=db.contacts.filter(x=>x.id!==i);
-  db.tasks=db.tasks.filter(t=>!(t.type==="contact"&&t.ref===i));
-  save();closeModal();contacts();
-}
-
-/* ---------- VENTES ---------- */
-function sales(){
-  listPage("💰 Ventes",db.sales.map(s=>`<div class="item">
-    <div class="item-main" onclick="showSale('${s.id}')">
-      <div class="item-title">${esc(s.clientName||"Vente")}</div>
-      <div class="item-sub">${esc(s.vehicleName||"")} ${s.date?"· "+fmtDate(s.date):""}</div>
-    </div>
-    <div class="item-actions"><button class="small" onclick="showSale('${s.id}')">Ouvrir</button><button class="small danger" onclick="delSale('${s.id}')">🗑</button></div>
-  </div>`).join(""),"newSale","Aucune vente.");
-}
-function newSale(){
-  form("💰 Nouvelle vente",
-    field("Client","clientName")+
-    field("Véhicule","vehicleName")+
-    field("Date","date","date")+
-    field("Prix de vente","price","number"),
-    "submitSale");
-}
-function submitSale(f){
-  db.sales.push({id:id(),status:"active",...Object.fromEntries(new FormData(f))});
-  save();closeModal();sales();
-}
-function showSale(i){
-  const s=db.sales.find(x=>x.id===i);if(!s)return;
-  openModal(`<button type="button" class="close" onclick="closeModal()">×</button>
-    <h2>💰 Vente</h2>
-    <form class="form" onsubmit="saveSaleEdit(this);return false" data-id="${s.id}">
-      ${field("Client","clientName","text","",s.clientName||"")}
-      ${field("Véhicule","vehicleName","text","",s.vehicleName||"")}
-      ${field("Date","date","date","",s.date||"")}
-      ${field("Prix de vente","price","number","",s.price||"")}
-      <div class="form-actions"><button class="save">Enregistrer</button></div>
-    </form>
-    <hr><button class="action secondary" onclick="delSale('${s.id}')">🗑 Supprimer la vente</button>`);
-}
-function saveSaleEdit(f){
-  const s=db.sales.find(x=>x.id===f.dataset.id);if(!s)return;
-  Object.assign(s,Object.fromEntries(new FormData(f)));save();closeModal();sales();
-}
-function delSale(i){
-  if(!confirm("Supprimer cette vente ?"))return;
-  db.sales=db.sales.filter(x=>x.id!==i);save();closeModal();sales();
-}
-
-/* ---------- LIVRAISONS ---------- */
-function deliveries(){
-  listPage("🚗 Livraisons",db.deliveries.map(d=>`<div class="item">
-    <div class="item-main" onclick="showDelivery('${d.id}')">
-      <div class="item-title">${esc(d.clientName||"Livraison")}</div>
-      <div class="item-sub">${esc(d.vehicleName||"")} · ${esc(d.date||"")}</div>
-    </div>
-    <button class="small" onclick="showDelivery('${d.id}')">Ouvrir</button>
-  </div>`).join(""),null,"Aucune livraison.");
-}
-function showDelivery(i){
-  const d=db.deliveries.find(x=>x.id===i);if(!d)return;
-  openModal(`<button type="button" class="close" onclick="closeModal()">×</button>
-    <h2>🚗 Livraison</h2>
-    <div class="details">
-      <div class="detail-grid">
-        <div><div class="detail-label">Client</div><div class="detail-value">${esc(d.clientName||"—")}</div></div>
-        <div><div class="detail-label">Véhicule</div><div class="detail-value">${esc(d.vehicleName||"—")}</div></div>
-        <div><div class="detail-label">Date</div><div class="detail-value">${esc(d.date||"—")}</div></div>
-        <div><div class="detail-label">Heure</div><div class="detail-value">${esc(d.start||"")} ${d.end?"- "+esc(d.end):""}</div></div>
-      </div>
-    </div>`);
-}
-
-/* ---------- LISTE GÉNÉRIQUE ---------- */
-function listPage(title,content,add,empty){
-  app.innerHTML=`${back()}
-    <div class="page-toolbar"><h1 class="title">${title}</h1>${add?`<button class="action inline" onclick="${add}()">＋ Ajouter</button>`:""}</div>
-    <div class="list">${content||`<div class="empty">${empty}</div>`}</div>`;
-}
-
+const KEY="vo_pilot_data_v4";
+const CHECKS=[
+ ["priceDisplay","Affiche de prix"],["warranty","Garantie"],["plateCover","Cache plaque"],
+ ["cleaning","Nettoyage"],["photos","Photos"],["adPublished","Annonce publiée"],
+ ["location","Emplacement"],["fuel","Carburant / recharge"],["other","Autre"]
+];
+function empty(){return{vehicles:[],tasks:[]}}
+function load(){try{let x=JSON.parse(localStorage.getItem(KEY)||"null");return x||empty()}catch(e){return empty()}}
+let db=load();db.vehicles??=[];db.tasks??=[];
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function id(p){return p+"_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,7)}
+function esc(x){return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function today(){return new Date().toISOString().slice(0,10)}
+function fmt(x){if(!x)return"—";let d=new Date(x+"T00:00:00");return isNaN(d)?"—":d.toLocaleDateString("fr-FR")}
+function vname(v){return [v.model,v.immat].filter(Boolean).join(" — ")||"Véhicule sans nom"}
+function open(){document.getElementById("overlay").classList.add("open")}
+function close(){document.getElementById("overlay").classList.remove("open")}
+document.getElementById("overlay").onclick=e=>{if(e.target.id==="overlay")close()};document.onkeydown=e=>{if(e.key==="Escape")close()}
+function head(){return'<header><div class="brand">VO PILOT</div></header>'}
+function module(i,n,c,r){return`<button class="module" onclick="go('${r}')"><div class="module-head"><span class="module-icon">${i}</span><span>${n}</span></div><div class="count">${c}</div></button>`}
+function priorityRank(p){return p==="high"?0:p==="medium"?1:2}
+function openTasks(){return db.tasks.filter(t=>!t.done&&!t.deleted).sort((a,b)=>(a.due||"9999").localeCompare(b.due||"9999")||priorityRank(a.priority)-priorityRank(b.priority))}
+function taskCard(t){let p={low:"Faible",medium:"Moyenne",high:"Élevée"}[t.priority]||"Moyenne";return`<div class="task"><div class="task-main"><div class="task-title">${esc(t.title)} <span class="priority ${t.priority}">${p}</span></div><div class="task-meta">${t.due?"Échéance : "+fmt(t.due):"Sans échéance"}${t.auto?" · Tâche automatique":""}</div></div><div class="actions"><button class="icon ok" title="Terminer" onclick="finishTask('${t.id}')">✓</button><button class="icon del" title="Supprimer" onclick="deleteTask('${t.id}')">🗑</button></div></div>`}
+function home(){let ts=openTasks();document.getElementById("app").innerHTML=head()+`<main><div class="date">${new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}</div><h1>À faire</h1>${ts.length?`<div class="task-list">${ts.slice(0,5).map(taskCard).join("")}</div>`:`<div class="empty">Aucune tâche en attente 🎉</div>`}${ts.length>5?'<button class="secondary" style="width:100%;margin-top:10px" onclick="go(\'tasks\')">▼ Afficher toutes les tâches</button>':""}<button class="add" onclick="taskModal()">＋ Ajouter une tâche</button><div class="modules">${module("🚚","Arrivages",db.vehicles.filter(v=>v.area==="arrival").length,"arrivals")}${module("🚗","Parc",db.vehicles.filter(v=>v.area==="park").length,"park")}${module("📋","Tâches",openTasks().length,"tasks")}</div></main>`}
+function page(title,icon,btn,fn){return`<div class="page-head"><button class="back" onclick="home()">← Retour</button><h1>${icon} ${title}</h1><div class="page-add"><button class="primary" onclick="${fn}">＋ ${btn}</button></div></div>`}
+function info(l,v){return`<div><div class="ilabel">${l}</div><div class="ivalue">${esc(v||"—")}</div></div>`}
+function arrivalCard(v){return`<div class="vehicle"><div class="vtop"><div><div class="vtitle">${esc(vname(v))}</div><div class="sub">${esc(v.finish||"Finition non renseignée")}</div></div><span class="status ${v.arrived?"arrived":"pending"}">${v.arrived?"Arrivée":"À recevoir"}</span></div><div class="info">${info("Kilométrage",v.km)}${info("Couleur",v.color)}${info("Prix d'achat",v.buyPrice)}${info("Date d'achat",fmt(v.buyDate))}${info("Prix bleu",v.bluePrice)}${info("Prix noir",v.blackPrice)}</div>${v.comment?`<div class="sub" style="margin-top:13px">💬 ${esc(v.comment)}</div>`:""}<div class="card-actions"><button class="secondary" onclick="vehicleModal('arrival','${v.id}')">Modifier</button><button class="secondary" onclick="movePark('${v.id}')">🚗 Parc</button><button class="secondary danger" onclick="delVehicle('${v.id}')">🗑</button></div></div>`}
+function arrivals(){let l=db.vehicles.filter(v=>v.area==="arrival");document.getElementById("app").innerHTML=head()+`<main>${page("Arrivages","🚚","Nouvel arrivage","vehicleModal('arrival')")}${l.length?`<div class="grid">${l.map(arrivalCard).join("")}</div>`:'<div class="empty">Aucun véhicule en arrivage.</div>'}</main>`}
+function checkRow(v,k,label){let c=!!(v.checks||{})[k];return`<label class="check ${c?"done":"missing"}"><input type="checkbox" ${c?"checked":""} onchange="toggleCheck('${v.id}','${k}',this.checked)"><span>${label}</span></label>`}
+function parkCard(v){return`<div class="vehicle"><div class="vtop"><div><div class="vtitle">${esc(vname(v))}</div><div class="sub">${esc(v.finish||"Finition non renseignée")}</div></div></div><div class="info">${info("Kilométrage",v.km)}${info("Couleur",v.color)}${info("Prix d'achat",v.buyPrice)}${info("Date d'achat",fmt(v.buyDate))}${info("Prix bleu",v.bluePrice)}${info("Prix noir",v.blackPrice)}</div>${v.comment?`<div class="sub" style="margin-top:13px">💬 ${esc(v.comment)}</div>`:""}<div class="checks"><div class="checks-title">Préparation du véhicule</div>${CHECKS.map(x=>checkRow(v,x[0],x[1])).join("")}<div class="sub">Les éléments non cochés génèrent automatiquement une tâche.</div></div><div class="card-actions"><button class="secondary" onclick="vehicleModal('park','${v.id}')">✏️ Modifier</button><button class="secondary danger" onclick="delVehicle('${v.id}')">🗑 Supprimer</button></div></div>`}
+function park(){let l=db.vehicles.filter(v=>v.area==="park");document.getElementById("app").innerHTML=head()+`<main>${page("Parc","🚗","Nouvelle fiche","vehicleModal('park')")}${l.length?`<div class="grid">${l.map(parkCard).join("")}</div>`:'<div class="empty">Aucun véhicule dans le Parc.</div>'}</main>`}
+function field(l,n,v,t="text",req=false){return`<div class="field"><label>${l}</label><input name="${n}" type="${t}" value="${esc(v||"")}" ${req?"required":""}></div>`}
+function vehicleModal(area,vid=""){let v=vid?db.vehicles.find(x=>x.id===vid):null;let arrival=area==="arrival";document.getElementById("modal").innerHTML=`<div class="mhead"><h2>${arrival?"🚚":"🚗"} ${v?(arrival?"Modifier l'arrivage":"Modifier le véhicule"):(arrival?"Nouvel arrivage":"Nouvelle fiche Parc")}</h2><button class="close" onclick="close()">×</button></div><form onsubmit="saveVehicle(event,'${area}','${vid}')"><div class="form">${field("Modèle *","model",v?.model,"text",true)}${field("Immatriculation","immat",v?.immat)}${field("Finition","finish",v?.finish)}${field("Kilométrage","km",v?.km,"number")}${field("Couleur","color",v?.color)}${field("Prix d'achat","buyPrice",v?.buyPrice,"number")}${field("Prix bleu","bluePrice",v?.bluePrice,"number")}${field("Prix noir","blackPrice",v?.blackPrice,"number")}${field("Date d'achat","buyDate",v?.buyDate,"date")}${arrival?`<div class="field full"><label>Statut d'arrivée</label><div class="arrivedBox"><input id="arrived" type="checkbox" ${v?.arrived?"checked":""}><span>Le véhicule est arrivé</span></div></div>`:""}<div class="field full"><label>Commentaire</label><textarea name="comment">${esc(v?.comment)}</textarea></div></div><div class="mActions"><button type="button" class="secondary" onclick="close()">Annuler</button><button class="primary">Enregistrer</button></div></form>`;open()}
+function saveVehicle(e,area,vid){e.preventDefault();let f=new FormData(e.target),v=vid?db.vehicles.find(x=>x.id===vid):{id:id("veh"),area,checks:{}};v.area=area;["model","immat","finish","km","color","buyPrice","bluePrice","blackPrice","buyDate","comment"].forEach(k=>v[k]=(f.get(k)||"").toString().trim());if(area==="arrival")v.arrived=document.getElementById("arrived").checked;if(!vid)db.vehicles.push(v);save();close();go(area==="arrival"?"arrivals":"park")}
+function movePark(vid){let v=db.vehicles.find(x=>x.id===vid);if(!v)return;v.area="park";v.checks=v.checks||{};CHECKS.forEach(x=>{if(typeof v.checks[x[0]]!=="boolean")v.checks[x[0]]=false});save();park()}
+function delVehicle(vid){let v=db.vehicles.find(x=>x.id===vid);if(!v)return;if(confirm("Supprimer "+vname(v)+" ?")){db.vehicles=db.vehicles.filter(x=>x.id!==vid);db.tasks=db.tasks.filter(t=>t.vehicleId!==vid);save();go(v.area==="arrival"?"arrivals":"park")}}
+function toggleCheck(vid,key,checked){let v=db.vehicles.find(x=>x.id===vid);if(!v)return;v.checks=v.checks||{};v.checks[key]=checked;let existing=db.tasks.find(t=>t.auto&&t.vehicleId===vid&&t.checkKey===key&&!t.deleted);let label=CHECKS.find(x=>x[0]===key)?.[1]||key;if(!checked){if(existing){existing.done=false;existing.deleted=false;existing.due=existing.due||today()}else db.tasks.push({id:id("task"),title:label+" — "+vname(v),due:today(),priority:"medium",done:false,deleted:false,auto:true,vehicleId:vid,checkKey:key})}else if(existing){existing.done=true;existing.completedAt=new Date().toISOString()}save();park()}
+function taskModal(){document.getElementById("modal").innerHTML=`<div class="mhead"><h2>☑️ Nouvelle tâche</h2><button class="close" onclick="close()">×</button></div><form onsubmit="saveTask(event)"><div class="form">${field("Titre *","title","","text",true)}${field("Échéance","due","","date")}<div class="field"><label>Importance</label><select name="priority"><option value="low">Faible</option><option value="medium" selected>Moyenne</option><option value="high">Élevée</option></select></div></div><div class="mActions"><button type="button" class="secondary" onclick="close()">Annuler</button><button class="primary">Enregistrer</button></div></form>`;open()}
+function saveTask(e){e.preventDefault();let f=new FormData(e.target);db.tasks.push({id:id("task"),title:(f.get("title")||"").trim(),due:f.get("due")||"",priority:f.get("priority")||"medium",done:false,deleted:false,auto:false});save();close();tasks()}
+function finishTask(tid){let t=db.tasks.find(x=>x.id===tid);if(!t)return;t.done=true;t.completedAt=new Date().toISOString();if(t.auto&&t.vehicleId&&t.checkKey){let v=db.vehicles.find(x=>x.id===t.vehicleId);if(v){v.checks=v.checks||{};v.checks[t.checkKey]=true}}save();renderCurrent()}
+function deleteTask(tid){let t=db.tasks.find(x=>x.id===tid);if(!t)return;t.deleted=true;if(t.auto&&t.vehicleId&&t.checkKey){let v=db.vehicles.find(x=>x.id===t.vehicleId);if(v){v.checks=v.checks||{};v.checks[t.checkKey]=true}}save();renderCurrent()}
+function tasks(){let o=openTasks(),h=db.tasks.filter(t=>t.done&&!t.deleted).sort((a,b)=>(b.completedAt||"").localeCompare(a.completedAt||""));document.getElementById("app").innerHTML=head()+`<main>${page("Tâches","📋","Ajouter une tâche","taskModal")}<div class="section">À faire</div>${o.length?`<div class="task-list">${o.map(taskCard).join("")}</div>`:'<div class="empty">Aucune tâche en attente 🎉</div>'}<div class="section">Historique</div>${h.length?`<div class="task-list history">${h.map(t=>`<div class="task"><div class="task-main"><div class="task-title">✓ ${esc(t.title)}</div><div class="task-meta">Terminée le ${t.completedAt?new Date(t.completedAt).toLocaleDateString("fr-FR"):"—"}</div></div><button class="icon del" onclick="deleteTask('${t.id}')">🗑</button></div>`).join("")}`:'<div class="empty">Aucune tâche terminée.</div>'}</main>`}
+let current="home";function go(r){current=r;if(r==="arrivals")arrivals();else if(r==="park")park();else if(r==="tasks")tasks();else home()}function renderCurrent(){go(current)}
 home();
-</script>
-</body>
-</html>
+</script></body></html>
